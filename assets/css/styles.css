@@ -1,0 +1,694 @@
+/* ==========================================================================
+   Tanishq Tiwari â€” portfolio
+   Glass-on-ink theme: one key light, high and to the left, falling across a
+   deep ink room. Every pane is lit from that same corner.
+   ========================================================================== */
+
+:root {
+  --ink-900: #090c18;
+  --ink-800: #0d1326;
+  --ink-700: #16203d;
+
+  --accent: #7fe3d4;
+  --accent-soft: rgba(127, 227, 212, 0.16);
+
+  --text: rgba(232, 240, 252, 0.88);
+  --text-strong: #f2f7ff;
+  --text-muted: rgba(205, 219, 240, 0.62);
+  --text-faint: rgba(190, 206, 230, 0.45);
+
+  --radius-lg: 24px;
+  --radius-md: 18px;
+  --radius-pill: 999px;
+
+  --shell: min(1040px, 100% - 2.5rem);
+  --bar-height: 64px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--bar-height) + 1.5rem);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  background-color: var(--ink-800);
+  font-family: 'Sora', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-weight: 300;
+  font-size: clamp(0.95rem, 0.9rem + 0.2vw, 1.0625rem);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3 {
+  font-family: inherit;
+  font-weight: 500;
+  line-height: 1.2;
+  margin: 0;
+  color: var(--text-strong);
+}
+
+p {
+  margin: 0;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+svg {
+  width: 1em;
+  height: 1em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+::selection {
+  background: rgba(127, 227, 212, 0.35);
+  color: #fff;
+}
+
+/* --------------------------------------------------------------------------
+   Lighting: the room and the window that lights it
+   -------------------------------------------------------------------------- */
+
+.glass-backdrop,
+.glass-window {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+}
+
+.glass-backdrop {
+  background:
+    radial-gradient(70vmax 48vmax at 6% -14%, rgba(196, 240, 236, 0.34), transparent 62%),
+    linear-gradient(118deg, transparent 22%, rgba(127, 227, 212, 0.1) 34%, rgba(127, 227, 212, 0.035) 48%, transparent 60%),
+    linear-gradient(172deg, var(--ink-700) 0%, var(--ink-800) 46%, var(--ink-900) 100%);
+  background-attachment: fixed;
+}
+
+/* The light source itself: a tall window whose light falls across the room,
+   mullions and all. */
+.glass-window {
+  inset: auto;
+  z-index: -1;
+  top: -12vh;
+  left: 4vw;
+  width: min(58vw, 760px);
+  height: 92vh;
+  transform: skewX(-22deg);
+  transform-origin: top left;
+  background:
+    linear-gradient(90deg,
+      transparent 0 calc(33.33% - 5px), rgba(9, 12, 24, 0.55) calc(33.33% - 5px) calc(33.33% + 5px),
+      transparent calc(33.33% + 5px) calc(66.66% - 5px), rgba(9, 12, 24, 0.55) calc(66.66% - 5px) calc(66.66% + 5px),
+      transparent calc(66.66% + 5px)),
+    linear-gradient(180deg, transparent 0 calc(48% - 5px), rgba(9, 12, 24, 0.55) calc(48% - 5px) calc(48% + 5px), transparent calc(48% + 5px)),
+    linear-gradient(172deg, rgba(214, 246, 242, 0.26), rgba(127, 227, 212, 0.1) 55%, rgba(127, 227, 212, 0) 100%);
+  -webkit-mask-image: linear-gradient(180deg, #000 25%, transparent 92%);
+  mask-image: linear-gradient(180deg, #000 25%, transparent 92%);
+  filter: blur(6px);
+}
+
+/* --------------------------------------------------------------------------
+   Glass primitives
+   -------------------------------------------------------------------------- */
+
+.gl-pane {
+  position: relative;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.04) 42%, rgba(255, 255, 255, 0.025));
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow:
+    inset 1px 1px 0 rgba(255, 255, 255, 0.2),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.28),
+    14px 26px 50px -30px rgba(2, 4, 10, 0.85);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  backdrop-filter: blur(24px) saturate(140%);
+}
+
+.gl-hero {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05) 45%, rgba(255, 255, 255, 0.03));
+  border-color: rgba(255, 255, 255, 0.13);
+  box-shadow:
+    inset 1px 1px 0 rgba(255, 255, 255, 0.32),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.32),
+    24px 44px 80px -40px rgba(2, 4, 10, 0.95);
+  -webkit-backdrop-filter: blur(32px) saturate(150%);
+  backdrop-filter: blur(32px) saturate(150%);
+}
+
+.gl-pane-thin {
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.02) 50%);
+  box-shadow:
+    inset 1px 1px 0 rgba(255, 255, 255, 0.14),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.22),
+    8px 16px 32px -24px rgba(2, 4, 10, 0.8);
+}
+
+.gl-bar {
+  background: rgba(16, 22, 40, 0.62);
+  box-shadow:
+    inset 1px 1px 0 rgba(255, 255, 255, 0.16),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.3),
+    0 14px 30px -20px rgba(2, 4, 10, 0.9);
+}
+
+.gl-reeded {
+  background:
+    repeating-linear-gradient(90deg,
+      rgba(255, 255, 255, 0) 0px,
+      rgba(255, 255, 255, 0.1) 5px,
+      rgba(255, 255, 255, 0.02) 9px,
+      rgba(0, 0, 0, 0.16) 12px,
+      rgba(255, 255, 255, 0) 13px),
+    linear-gradient(118deg, rgba(255, 255, 255, 0.04) 18%, rgba(214, 248, 243, 0.34) 34%, rgba(127, 227, 212, 0.16) 46%, rgba(60, 90, 140, 0.08) 66%, rgba(255, 255, 255, 0.03));
+}
+
+.gl-bezel {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.08) 45%, rgba(0, 0, 0, 0.35));
+  box-shadow: 10px 18px 36px -18px rgba(2, 4, 10, 0.9);
+}
+
+.gl-etched {
+  color: rgba(232, 240, 252, 0.88);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.45), 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* --------------------------------------------------------------------------
+   Layout
+   -------------------------------------------------------------------------- */
+
+.skip-link {
+  position: absolute;
+  left: 50%;
+  top: 0.5rem;
+  translate: -50% -200%;
+  z-index: 20;
+  padding: 0.6rem 1.1rem;
+  border-radius: var(--radius-pill);
+  background: var(--ink-700);
+  color: var(--text-strong);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: translate 160ms ease;
+}
+
+.skip-link:focus-visible {
+  translate: -50% 0;
+}
+
+.anchor {
+  display: block;
+}
+
+.topbar {
+  position: sticky;
+  top: 0.75rem;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  padding: 0.75rem 0 0;
+}
+
+.navbar {
+  width: var(--shell);
+  min-height: var(--bar-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  padding: 0.6rem 1.25rem;
+  border-radius: var(--radius-pill);
+}
+
+.navbar__brand {
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--text-strong);
+  white-space: nowrap;
+}
+
+.navbar__links {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.navbar__links::-webkit-scrollbar {
+  display: none;
+}
+
+.navbar__links a {
+  display: block;
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  transition: color 160ms ease, background-color 160ms ease;
+}
+
+.navbar__links a:hover,
+.navbar__links a:focus-visible {
+  color: var(--text-strong);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.navbar__links a[aria-current='true'] {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.section {
+  width: var(--shell);
+  margin-inline: auto;
+  padding-block: clamp(2.5rem, 5vw, 4rem);
+}
+
+.section--hero {
+  padding-top: clamp(2rem, 4vw, 3rem);
+}
+
+.section__heading {
+  font-size: clamp(1.35rem, 1.1rem + 1vw, 1.75rem);
+  letter-spacing: -0.01em;
+  margin-bottom: 1.5rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: 1.25rem;
+}
+
+/* --------------------------------------------------------------------------
+   Hero
+   -------------------------------------------------------------------------- */
+
+.hero {
+  padding: clamp(1.75rem, 4vw, 2.75rem);
+  overflow: hidden;
+}
+
+.hero__identity {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.monogram {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 76px;
+  height: 76px;
+  border-radius: 22px;
+  padding: 1px;
+}
+
+.monogram span {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 21px;
+  background: linear-gradient(150deg, rgba(22, 32, 61, 0.9), rgba(9, 12, 24, 0.95));
+  color: var(--accent);
+  font-size: 2rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* Swap the monogram for a photo by replacing the .monogram block in index.html
+   with <img class="monogram monogram--photo" src="assets/img/avatar.jpg" alt=""> */
+.monogram--photo {
+  object-fit: cover;
+  padding: 0;
+}
+
+.hero__name {
+  font-size: clamp(1.9rem, 1.4rem + 2.4vw, 3rem);
+  letter-spacing: -0.02em;
+}
+
+.hero__title {
+  margin-top: 0.35rem;
+  color: var(--accent);
+  font-size: clamp(0.95rem, 0.9rem + 0.3vw, 1.1rem);
+  letter-spacing: 0.02em;
+}
+
+.hero__summary {
+  margin-top: 1.5rem;
+  max-width: 62ch;
+  color: var(--text-muted);
+}
+
+.hero__actions {
+  margin-top: 1.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.hero__lightline {
+  margin-top: 2rem;
+  height: 3px;
+  border-radius: var(--radius-pill);
+  opacity: 0.8;
+}
+
+/* --------------------------------------------------------------------------
+   Cards & timeline
+   -------------------------------------------------------------------------- */
+
+.card {
+  padding: clamp(1.25rem, 2.5vw, 1.75rem);
+}
+
+.timeline {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.card__period {
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.card__title {
+  margin-top: 0.5rem;
+  font-size: clamp(1.1rem, 1rem + 0.5vw, 1.3rem);
+  letter-spacing: -0.01em;
+}
+
+.card__subtitle {
+  font-size: 0.8125rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.card__org {
+  margin-top: 0.25rem;
+  color: var(--accent);
+  font-size: 0.95rem;
+}
+
+.card__summary {
+  margin-top: 0.9rem;
+  color: var(--text-muted);
+}
+
+.card__highlights {
+  margin-top: 1.1rem;
+  display: grid;
+  gap: 0.7rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  padding-top: 1.1rem;
+}
+
+.card__highlights li {
+  position: relative;
+  padding-left: 1.4rem;
+  color: var(--text);
+  font-size: 0.9375rem;
+}
+
+.card__highlights li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 10px rgba(127, 227, 212, 0.6);
+}
+
+.card__meta {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  color: var(--text-muted);
+  font-size: 0.9375rem;
+}
+
+/* --------------------------------------------------------------------------
+   Chips
+   -------------------------------------------------------------------------- */
+
+.chips {
+  margin-top: 1.1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.85rem;
+  /* Clamps to a pill on single-line chips, and keeps a sane shape on the
+     multi-line ones (the AWS entry is wider than a skills card). */
+  border-radius: 18px;
+  font-size: 0.85rem;
+  color: var(--text);
+  text-align: center;
+}
+
+.chip--action {
+  padding: 0.6rem 1.1rem;
+  color: var(--text-strong);
+  transition: transform 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+.chip--action svg {
+  color: var(--accent);
+  font-size: 1.05em;
+}
+
+.chip--action:hover,
+.chip--action:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(127, 227, 212, 0.4);
+}
+
+.chip--stat abbr {
+  color: var(--text-faint);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------------------
+   Footer & share
+   -------------------------------------------------------------------------- */
+
+.footer {
+  display: grid;
+  justify-items: center;
+  gap: 1.25rem;
+  padding-bottom: 3rem;
+}
+
+.share {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1rem;
+  border-radius: var(--radius-pill);
+}
+
+.share__label {
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-right: 0.25rem;
+}
+
+.share__btn {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-muted);
+  font: inherit;
+  cursor: pointer;
+  transition: color 160ms ease, background-color 160ms ease, transform 160ms ease;
+}
+
+.share__btn svg {
+  font-size: 1.05rem;
+}
+
+.share__btn:hover,
+.share__btn:focus-visible {
+  color: var(--accent);
+  background: var(--accent-soft);
+  transform: translateY(-2px);
+}
+
+.share__toast {
+  font-size: 0.8125rem;
+  color: var(--accent);
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+
+.share__toast[data-visible='true'] {
+  opacity: 1;
+}
+
+.footer__note {
+  font-size: 0.8125rem;
+  color: var(--text-faint);
+}
+
+/* --------------------------------------------------------------------------
+   Motion
+   -------------------------------------------------------------------------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 600ms ease, transform 600ms ease;
+}
+
+.reveal[data-revealed='true'] {
+  opacity: 1;
+  transform: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Backdrop blur is expensive on low-end mobile; panes stay legible without it. */
+@media (max-width: 560px) {
+  .gl-pane,
+  .gl-hero {
+    -webkit-backdrop-filter: blur(14px) saturate(130%);
+    backdrop-filter: blur(14px) saturate(130%);
+  }
+
+  .navbar {
+    border-radius: var(--radius-md);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+  }
+
+  .navbar__links {
+    width: 100%;
+  }
+}
+
+@media print {
+  .glass-backdrop,
+  .glass-window,
+  .topbar,
+  .share {
+    display: none !important;
+  }
+
+  body {
+    background: #fff;
+    color: #111;
+  }
+
+  .gl-pane,
+  .gl-hero,
+  .gl-pane-thin {
+    background: none;
+    border: 1px solid #ccc;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  .card__org,
+  .hero__title,
+  .gl-etched {
+    color: #111;
+    text-shadow: none;
+  }
+
+  .card__summary,
+  .hero__summary,
+  .card__meta,
+  .card__period,
+  .card__subtitle,
+  .footer__note {
+    color: #333;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
