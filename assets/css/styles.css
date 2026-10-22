@@ -591,15 +591,29 @@ svg {
    Motion
    -------------------------------------------------------------------------- */
 
-.reveal {
-  opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 600ms ease, transform 600ms ease;
+/* Panes are visible by default and the entrance animation is layered on top as
+   a pure-CSS enhancement, so a missing or broken script can never hide the
+   content. Browsers without scroll-driven animations just show the panes. */
+@keyframes reveal-pane {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
-.reveal[data-revealed='true'] {
-  opacity: 1;
-  transform: none;
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: reveal-pane linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 55%;
+    }
+  }
 }
 
 :focus-visible {
@@ -617,11 +631,6 @@ svg {
   *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
-  }
-
-  .reveal {
-    opacity: 1;
-    transform: none;
   }
 }
 
@@ -688,6 +697,7 @@ svg {
   }
 
   .reveal {
+    animation: none;
     opacity: 1;
     transform: none;
   }
