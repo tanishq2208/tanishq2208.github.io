@@ -1,0 +1,101 @@
+{
+  "profile": {
+    "name": "Tanishq Tiwari",
+    "title": "Software Development Engineer",
+    "summary": "Software Development Engineer with experience building payment workflows, backend services, and distributed systems using Go, Java, Kafka, Redis, and AWS.",
+    "email": "tanishqtiwari.2208@gmail.com",
+    "linkedin": "https://www.linkedin.com/in/tanishq-tiwari-9133ba219/",
+    "initials": "T"
+  },
+  "experience": [
+    {
+      "role": "Software Development Engineer II",
+      "company": "Zeta",
+      "start": "Feb 2026",
+      "end": "Present",
+      "summary": "Designed an asynchronous webhook delivery service in Go to isolate downstream dependencies from the transaction flow. Implemented a read-heavy microservice with configurable replica routing through AWS RDS Proxy.",
+      "highlights": [
+        "Designed an asynchronous webhook delivery service in Go to isolate downstream dependencies from the transaction flow. Integrated Kafka for event ingestion, Redis-backed retry scheduling with exponential backoff, and AWS SQS dead-letter handling, achieving a 99.7% delivery success rate within 6 hours of the first attempt.",
+        "Implemented a read-heavy microservice with configurable replica routing through AWS RDS Proxy, reducing primary database load and improving query scalability during peak traffic."
+      ]
+    },
+    {
+      "role": "Software Development Engineer I",
+      "company": "Zeta",
+      "start": "Dec 2024",
+      "end": "Jan 2026",
+      "summary": "Migrated critical payment workflows to direct JDBC-based database access, created an automated transaction recovery pipeline integrating BillDesk APIs, and engineered a configurable reminder service for recurring bill notifications.",
+      "highlights": [
+        "Migrated critical payment workflows from an internal abstraction layer to direct JDBC-based database access, reducing query latency and eliminating an additional network hop.",
+        "Created an automated transaction recovery pipeline integrating BillDesk APIs to reconcile stuck transactions, driving daily failures down from over 1,500 to fewer than 20.",
+        "Engineered a configurable reminder service for recurring bill notifications with support for dynamic scheduling and filtering, increasing user engagement by 15%."
+      ]
+    },
+    {
+      "role": "Associate Software Developer & SDE Intern",
+      "company": "Jar",
+      "start": "Jun 2024",
+      "end": "Nov 2024",
+      "summary": "Integrated Razorpay UPI mandate flows, introduced OpenTelemetry-based distributed tracing and Sentry monitoring, and delivered low-latency loan eligibility services.",
+      "highlights": [
+        "Integrated Razorpay UPI mandate flows into the transaction processing pipeline, improving authorization reliability and reducing payment failures.",
+        "Introduced OpenTelemetry-based distributed tracing and Sentry monitoring into a Node.js service, cutting debugging and incident resolution time by 40%.",
+        "Delivered low-latency loan eligibility services for pre-approved offers, contributing to a 20% increase in loan disbursement rates."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Tourism Platform",
+      "description": "Developed a full-stack travel-sharing platform with JWT-based authentication and personalized feeds for 100+ users. Enforced server-side validation and optimized data handling workflows, reducing inconsistent data entries by 95%.",
+      "stack": ["React", "Node.js", "Express.js", "MongoDB"],
+      "url": null
+    }
+  ],
+  "skills": [
+    {
+      "group": "Languages",
+      "items": ["Java", "Go", "Python", "JavaScript", "C/C++"]
+    },
+    {
+      "group": "Backend & Distributed Systems",
+      "items": [
+        "Spring Boot",
+        "Node.js",
+        "Express.js",
+        "Django",
+        "Kafka",
+        "RabbitMQ",
+        "Redis",
+        "Microservices"
+      ]
+    },
+    {
+      "group": "Cloud & Infrastructure",
+      "items": [
+        "AWS (RDS Proxy, SQS, S3, Lambda, Route 53)",
+        "Docker",
+        "Kubernetes",
+        "Jenkins",
+        "Linux"
+      ]
+    },
+    {
+      "group": "Databases",
+      "items": ["MySQL", "MongoDB", "PostgreSQL"]
+    },
+    {
+      "group": "Observability & Monitoring",
+      "items": ["OpenTelemetry", "Grafana", "Elasticsearch", "Sentry"]
+    }
+  ],
+  "education": [
+    {
+      "degree": "B.Tech in Computer Science & Engineering",
+      "institution": "Indian Institute of Information Technology (IIIT), Nagpur",
+      "location": "Nagpur, Maharashtra",
+      "year": "2024",
+      "gpa": "7.57/10.0"
+    }
+  ]
+}
